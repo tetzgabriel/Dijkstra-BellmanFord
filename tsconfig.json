@@ -2,10 +2,18 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "Node",
+    "esModuleInterop": true,
     "target": "ES2020",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "jsx": "react",
     "strictNullChecks": true,
     "strictFunctionTypes": true
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   },
   "exclude": [
     "node_modules",
