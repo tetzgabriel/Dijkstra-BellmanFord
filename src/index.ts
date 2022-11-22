@@ -29,7 +29,7 @@ for (let i = 0; i < problemKeys.length; i++) {
   const key = problemKeys[i]
   console.log(key)
   const otherKeys = problemKeys.filter((problemKey) => key !== problemKey)
-  // console.log(otherKeys)
+
   const { vertexConnectionList } = await prompt<{ vertexConnectionList: string[] }>([
     {
       type: 'checkbox',
