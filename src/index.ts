@@ -1,5 +1,5 @@
 import { algorithms } from './algorithms'
-import { Distance, Graph } from './types'
+import { Distance, Graph, Vertex } from './types'
 import { addEdge, addVertex } from './utils/graph'
 import colors from 'colors'
 import inquirer from 'inquirer'
@@ -74,6 +74,17 @@ const { algorithmChoiced } = await prompt<{
   }
 ])
 
+const { startVertexChoiced } = await prompt<{
+  startVertexChoiced: Vertex
+}>([
+  {
+    type: 'list',
+    name: 'startVertexChoiced',
+    message: colors.underline.yellow('Qual o vertice inicial?'),
+    choices: problemKeys
+  }
+])
+
 console.log(colors.underline.yellow(`Executando algoritmo ${algorithms[algorithmChoiced].name}`))
 
-algorithms[algorithmChoiced].execute(problem)
+algorithms[algorithmChoiced].execute(problem, startVertexChoiced)

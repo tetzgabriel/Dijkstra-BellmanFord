@@ -25,6 +25,4 @@ export function dijkstra (graph: Graph, startVertex: Vertex) {
       console.log(colors.cyan('lista de ancestrais após atribuição'), predecessors)
     })
   })
-
-  console.log('Distancias')
 }
