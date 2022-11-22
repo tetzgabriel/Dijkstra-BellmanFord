@@ -34,15 +34,18 @@ export function addEdge (graph: Graph, v: Vertex, w: Vertex, distance: Distance)
  * @param {Graph} graph
  * @return {*}  DistanceList
  */
-export function initDistanceList (graph: Graph): DistanceList {
+export function initDistanceList (graph: Graph, startVertex: Vertex): DistanceList {
   let distances: Edge = {}
-  const ancestors: Array<Vertex> = []
-  Object.keys(graph).forEach((summit, index) => {
+  let predecessors: Record<Vertex, Vertex> = {}
+  Object.keys(graph).forEach((summit) => {
     distances = {
       ...distances,
-      [summit]: index === 0 ? 0 : Infinity
+      [summit]: summit === startVertex ? 0 : Infinity
     }
-    ancestors.push('')
+    predecessors = {
+      ...predecessors,
+      [summit]: ''
+    }
   })
-  return { distances, ancestors }
+  return { distances, predecessors }
 }

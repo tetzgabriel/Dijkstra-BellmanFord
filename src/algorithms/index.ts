@@ -1,3 +1,4 @@
+import { bellmanFordAlgorithm } from './bellman-ford'
 import { dijkstra } from './dijkstra'
 
 export * from './dijkstra'
@@ -11,6 +12,6 @@ export const algorithms = {
   bellmanFord: {
     name: 'Bellman-Ford',
     value: 'bellmanFord',
-    execute: () => {}
+    execute: bellmanFordAlgorithm
   }
 }
