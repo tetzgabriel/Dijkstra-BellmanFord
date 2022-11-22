@@ -1,27 +1,90 @@
-import { dijkstraAlgorithm } from './algorithms/dijkstra'
-import { Graph } from './types'
+import { algorithms } from './algorithms'
+import { Distance, Graph, Vertex } from './types'
 import { addEdge, addVertex } from './utils/graph'
+import colors from 'colors'
+import inquirer from 'inquirer'
+
+const { prompt } = inquirer
 
 // Teste das funções addVertex e addEdge
 const problem: Graph = {}
-console.log('vértice', addVertex(problem), 'adicionado')
-console.log('vértice', addVertex(problem), 'adicionado')
-console.log('vértice', addVertex(problem), 'adicionado')
-console.log('vértice', addVertex(problem), 'adicionado')
-console.log('Primeiro problema', problem)
-addEdge(problem, '1', '2', 3)
-addEdge(problem, '2', '3', 4)
-addEdge(problem, '3', '4', -1)
-addEdge(problem, '4', '1', 2)
-console.log('Primeiro problema', problem)
+let { numberVertex } = await prompt([
+  {
+    type: 'number',
+    message: colors.underline.yellow('Quantos vértices o grafo possui?\n'),
+    name: 'numberVertex'
+  }
+])
 
-const problem2: Graph = {
-  1: { 2: 2, 3: 1 },
-  2: { 4: 1 },
-  3: { 4: 3, 5: 4 },
-  4: { 6: 3 },
-  5: { 6: 2 },
-  6: {}
+while (numberVertex > 0) {
+  const addedVertex = addVertex(problem)
+  console.log(colors.green(`Vértice ${addedVertex} adicionado!`))
+  numberVertex--
 }
 
-dijkstraAlgorithm(problem2)
+console.log('\n', colors.green('Grafo inicializado!\n'), problem)
+
+const problemKeys = Object.keys(problem)
+for (let i = 0; i < problemKeys.length; i++) {
+  const key = problemKeys[i]
+  console.log(key)
+  const otherKeys = problemKeys.filter((problemKey) => key !== problemKey)
+  // console.log(otherKeys)
+  const { vertexConnectionList } = await prompt<{ vertexConnectionList: string[] }>([
+    {
+      type: 'checkbox',
+      message: colors.underline.yellow(`O vértice ${key} se conecta com quais vértices abaixo?`),
+      name: 'vertexConnectionList',
+      choices: otherKeys
+    }
+  ])
+
+  for (let j = 0; j < vertexConnectionList.length; j++) {
+    const vertexConnection = vertexConnectionList[j]
+    const { distance } = await prompt<{ distance: Distance }>([
+      {
+        type: 'number',
+        message: colors.underline.yellow(`Qual a distância entre os vértices ${key} e ${vertexConnection}?`),
+        name: 'distance'
+      }
+    ])
+    addEdge(problem, key, vertexConnection, distance)
+  }
+}
+
+console.log(colors.green('Grafo construído!'), problem)
+
+const { algorithmChoiced } = await prompt<{
+  algorithmChoiced: string
+}>([
+  {
+    type: 'list',
+    name: 'algorithmChoiced',
+    message: colors.underline.yellow('Qual algoritmo deseja executar?'),
+    choices: [
+      {
+        value: algorithms.dijkstra.value,
+        name: algorithms.dijkstra.name
+      },
+      {
+        value: algorithms.bellmanFord.value,
+        name: algorithms.bellmanFord.name
+      }
+    ]
+  }
+])
+
+const { startVertexChoiced } = await prompt<{
+  startVertexChoiced: Vertex
+}>([
+  {
+    type: 'list',
+    name: 'startVertexChoiced',
+    message: colors.underline.yellow('Qual o vertice inicial?'),
+    choices: problemKeys
+  }
+])
+
+console.log(colors.underline.yellow(`Executando algoritmo ${algorithms[algorithmChoiced].name}`))
+
+algorithms[algorithmChoiced].execute(problem, startVertexChoiced)
