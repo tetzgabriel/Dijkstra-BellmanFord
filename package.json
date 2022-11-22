@@ -5,9 +5,9 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "node --loader ts-node/esm src/index.ts"
+    "dev": "node --loader ts-node/esm src/index.ts",
+    "examples": "node --loader ts-node/esm src/examples/graphs.ts"
   },
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/inquirer": "^9.0.3",

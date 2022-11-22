@@ -1,4 +1,3 @@
-/* eslint-disable no-self-assign */
 import { Graph, Vertex } from '../types'
 import { initDistanceList } from '../utils/graph'
 import colors from 'colors'
@@ -18,11 +17,13 @@ export function dijkstra (graph: Graph, startVertex: Vertex) {
       console.log(colors.cyan('atribuindo o valor da aresta na lista de distâncias'))
       if (!distances[edgeKey] || newDistance < distances[edgeKey]) {
         distances[edgeKey] = newDistance
-        predecessors[edgeValue] = summitKey
+        predecessors[edgeKey] = summitKey
       }
 
-      console.log(colors.cyan('lista de distâncias após atribuição'), distances)
-      console.log(colors.cyan('lista de ancestrais após atribuição'), predecessors)
+      console.log(colors.cyan('lista de distâncias após atribuição'))
+      console.table(distances)
+      console.log(colors.cyan('lista de ancestrais após atribuição'))
+      console.table(predecessors)
     })
   })
 }
