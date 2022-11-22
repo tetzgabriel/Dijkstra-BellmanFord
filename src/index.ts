@@ -1,3 +1,4 @@
+import { bellmanFordAlgorithm } from './algorithms/bellman-ford'
 import { dijkstraAlgorithm } from './algorithms/dijkstra'
 import { Graph } from './types'
 import { addEdge, addVertex } from './utils/graph'
@@ -24,4 +25,8 @@ const problem2: Graph = {
   6: {}
 }
 
+console.log('Dijkstra')
 dijkstraAlgorithm(problem2)
+
+console.log('BellmanFord')
+bellmanFordAlgorithm(problem2)
