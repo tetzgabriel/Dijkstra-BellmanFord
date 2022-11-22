@@ -4,5 +4,5 @@ export type Edge = Record<Vertex, Distance>
 export type Graph = Record<Vertex, Edge>
 export type DistanceList = {
   distances: Edge;
-  ancestors: Array<Vertex>;
+  predecessors: Record<Vertex, Vertex>;
 }

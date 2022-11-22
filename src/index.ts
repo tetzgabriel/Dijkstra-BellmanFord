@@ -26,7 +26,7 @@ const problem2: Graph = {
 }
 
 console.log('Dijkstra')
-dijkstraAlgorithm(problem2)
+dijkstraAlgorithm(problem2, '1')
 
 console.log('BellmanFord')
-bellmanFordAlgorithm(problem2)
+bellmanFordAlgorithm(problem2, '1')

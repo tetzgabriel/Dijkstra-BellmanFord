@@ -1,9 +1,9 @@
-import { Graph } from '../types'
+import { Graph, Vertex } from '../types'
 import { initDistanceList } from '../utils/graph'
 
-export function dijkstraAlgorithm (graph: Graph) {
+export function dijkstraAlgorithm (graph: Graph, startVertex: Vertex) {
   console.log('inicializando a lista de distâncias...')
-  const { distances, ancestors } = initDistanceList(graph)
+  const { distances, predecessors } = initDistanceList(graph, startVertex)
   console.log('lista de distâncias:', distances)
 
   Object.entries(graph).forEach(summit => {
@@ -18,11 +18,11 @@ export function dijkstraAlgorithm (graph: Graph) {
 
       if (!distances[edge[0]] || newDistance < distances[edge[0]]) {
         distances[edge[0]] = newDistance
-        ancestors[edge[0]] = edge[1]
+        predecessors[edge[0]] = summit[0]
       }
 
       console.log('lista de distâncias após atribuição', distances)
-      console.log('lista de ancestrais após atribuição', ancestors)
+      console.log('lista de ancestrais após atribuição', predecessors)
     })
   })
 }
