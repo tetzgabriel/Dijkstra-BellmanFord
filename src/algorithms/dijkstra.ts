@@ -16,9 +16,7 @@ export function dijkstra (graph: Graph) {
       console.log(colors.cyan('visitando a aresta'), edgeKey, colors.cyan('do vértice'), summitKey)
       const newDistance = distances[summitKey] + edgeValue
       console.log(colors.cyan('atribuindo o valor da aresta na lista de distâncias'))
-      if (distances[edgeKey] && newDistance > distances[edgeKey]) {
-        distances[edgeKey] = distances[edgeKey]
-      } else {
+      if (!distances[edgeKey] || newDistance < distances[edgeKey]) {
         distances[edgeKey] = newDistance
         ancestors[edgeKey] = edgeValue
       }
